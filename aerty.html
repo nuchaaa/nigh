@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberSafe — Киберқауіпсіздік платформасы</title>
+<style>
+:root{--bg:#08111f;--panel:#101d30;--panel2:#14243a;--line:#263a55;--text:#edf4ff;--muted:#9db0ca;--cyan:#42d6d0;--blue:#5795ff;--green:#53d69a;--red:#ff7185;--yellow:#ffd166}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0%,#17345a 0,transparent 32%),var(--bg);color:var(--text);font:15px/1.6 Inter,Segoe UI,Arial,sans-serif}
+button,input{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:11px 16px;font-weight:700;color:#06121f;background:linear-gradient(135deg,var(--cyan),#7de4c1);transition:.2s}button:hover{transform:translateY(-1px);filter:brightness(1.06)}button.secondary{background:#203653;color:var(--text);border:1px solid var(--line)}button:disabled{opacity:.5;cursor:not-allowed;transform:none}
+header{position:sticky;top:0;z-index:5;background:#08111fe8;backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{max-width:1180px;margin:auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:20px;letter-spacing:.3px}.logo{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#071323;font-size:20px}
+nav{display:flex;gap:7px;flex-wrap:wrap}nav button{background:transparent;color:var(--muted);padding:9px 12px}nav button.active,nav button:hover{background:#182b43;color:var(--text)}
+main{max-width:1180px;margin:auto;padding:32px 22px 70px}.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:25px;align-items:center;padding:28px 0 38px}.eyebrow{color:var(--cyan);font-weight:800;letter-spacing:1.8px;text-transform:uppercase;font-size:12px}.hero h1{font-size:clamp(34px,5vw,58px);line-height:1.08;margin:12px 0 16px}.gradient{background:linear-gradient(90deg,#fff,var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}.lead{color:var(--muted);font-size:17px;max-width:650px}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.hero-art{min-height:260px;border:1px solid #315274;border-radius:28px;background:linear-gradient(145deg,#122944,#0d1a2c);display:grid;place-items:center;position:relative;overflow:hidden}.orb{width:190px;height:190px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#a4fff1,#42d6d0 25%,#235d88 60%,#10243b 72%);box-shadow:0 0 70px #42d6d055;font-size:76px}.orbit{position:absolute;width:260px;height:100px;border:1px solid #5bdedc77;border-radius:50%;transform:rotate(-28deg)}.orbit.two{transform:rotate(52deg);width:300px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}.stat,.card{background:linear-gradient(145deg,var(--panel),#0e1a2b);border:1px solid var(--line);border-radius:18px;padding:20px}.stat strong{display:block;font-size:26px}.stat span,.muted{color:var(--muted)}.section{display:none}.section.active{display:block;animation:fade .25s ease}@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.section-head{margin:8px 0 22px}.section-head h2{font-size:30px;margin:4px 0}.section-head p{color:var(--muted);margin:0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.card h3{margin:0 0 8px;font-size:20px}.card p{color:var(--muted);margin:0 0 16px}.tag{display:inline-block;padding:4px 9px;border-radius:99px;background:#18384a;color:var(--cyan);font-size:12px;font-weight:800;margin-bottom:12px}
+.drop{border:1px dashed #52708f;border-radius:16px;padding:25px;text-align:center;background:#0b1727}.drop input{display:block;margin:15px auto 0;max-width:100%;color:var(--muted)}.field{display:flex;flex-direction:column;gap:7px;margin:14px 0}.field label{font-size:13px;color:var(--muted);font-weight:700}.field input{background:#081525;color:var(--text);border:1px solid var(--line);padding:12px;border-radius:10px;outline:none}.field input:focus{border-color:var(--cyan)}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.row>*{flex:1}.notice{padding:12px 14px;border-radius:12px;background:#132c3a;border:1px solid #285466;color:#b9f7eb;margin-top:14px}.notice.error{background:#351d2a;border-color:#754052;color:#ffc1ca}.notice.warn{background:#352d1b;border-color:#756032;color:#ffe3a1}.quiz-question{font-size:19px;font-weight:800;margin:12px 0}.answers{display:grid;gap:9px;margin:16px 0}.answer{padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#0b1727;color:var(--text);text-align:left}.answer.selected{border-color:var(--cyan);background:#12313a}.answer.correct{border-color:var(--green);background:#123326}.answer.wrong{border-color:var(--red);background:#351d2a}.progress{height:8px;background:#22334a;border-radius:99px;overflow:hidden;margin:15px 0}.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--blue));width:0;transition:.3s}.lesson-list{display:grid;gap:12px}.lesson{padding:16px;border:1px solid var(--line);border-radius:14px;background:#0b1727}.lesson strong{display:block;margin-bottom:5px}.pill{font-size:12px;color:var(--green);font-weight:800}.footer{border-top:1px solid var(--line);padding:24px 22px;text-align:center;color:var(--muted)}.small{font-size:12px;color:var(--muted)}.result{font-size:28px;font-weight:900;color:var(--cyan)}.hidden{display:none!important}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.hero-art{min-height:220px}.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.nav{align-items:flex-start;flex-direction:column}nav{width:100%}nav button{padding:8px}}
+
+.auth-actions{display:flex;align-items:center;gap:9px}
+.user-chip{color:var(--cyan);font-weight:700;font-size:13px}
+.modal-backdrop{position:fixed;inset:0;background:#020812c9;z-index:20;display:none;place-items:center;padding:18px}
+.modal-backdrop.show{display:grid}
+.modal{width:min(440px,100%);background:#101d30;border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 24px 80px #0009}
+.modal h2{margin:0 0 5px}.modal p{color:var(--muted);margin:0 0 16px}
+.modal-close{float:right;background:#203653;color:var(--text);padding:6px 10px}
+.ai-fab{position:fixed;right:22px;bottom:22px;z-index:12;border-radius:999px;width:60px;height:60px;padding:0;font-size:24px;box-shadow:0 10px 35px #42d6d055}
+.ai-panel{position:fixed;right:22px;bottom:94px;width:min(370px,calc(100vw - 28px));height:470px;max-height:70vh;z-index:12;background:#101d30;border:1px solid #315274;border-radius:20px;display:none;flex-direction:column;overflow:hidden;box-shadow:0 20px 70px #000b}
+.ai-panel.open{display:flex}
+.ai-head{padding:14px 16px;background:#142943;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.ai-head strong{display:block}.ai-head small{color:var(--muted)}
+.ai-messages{padding:14px;overflow:auto;display:flex;flex-direction:column;gap:10px;flex:1}
+.ai-msg{padding:10px 12px;border-radius:13px;max-width:90%;white-space:pre-wrap;font-size:13px}
+.ai-msg.bot{background:#1a3049;align-self:flex-start}.ai-msg.user{background:#174b50;align-self:flex-end}
+.ai-compose{padding:12px;border-top:1px solid var(--line);display:flex;gap:8px}
+.ai-compose input{min-width:0;flex:1;background:#081525;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px}
+.ai-compose button{padding:9px 13px}
+@media(max-width:760px){.auth-actions{width:100%;justify-content:space-between}.nav{flex-wrap:wrap}}
+
+
+/* Access gate: the platform is hidden until a user signs in */
+body.auth-locked header, body.auth-locked main,
+body.auth-locked .ai-fab, body.auth-locked .ai-panel {display:none !important}
+body.auth-locked {overflow:hidden}
+body.auth-locked .modal-backdrop {display:grid !important;z-index:1000;background:#06101ff5}
+body.auth-locked #authClose {display:none}
+.auth-switch{display:flex;gap:8px;margin-top:10px}
+.auth-switch button{flex:1}
+</style>
+</head>
+<body>
+<header><div class="nav">
+  <div class="brand"><div class="logo">◆</div> CyberSafe</div>
+  <nav>
+    <button class="active" data-tab="home">Басты бет</button>
+    <button data-tab="encrypt">Файлдарды қорғау</button>
+    <button data-tab="learn">Оқыту</button>
+    <button data-tab="quiz">Тест</button>
+    <button data-tab="results">Нәтижелер</button>
+  </nav>
+  <div class="auth-actions">
+    <span id="userChip" class="user-chip"></span>
+    <button class="secondary" id="loginOpen">Кіру</button>
+    <button id="registerOpen">Тіркелу</button>
+    <button class="secondary hidden" id="logoutBtn">Шығу</button>
+  </div>
+</div></header>
+<main>
+<section id="home" class="section active">
+  <div class="hero">
+    <div><div class="eyebrow">Қауіпсіздік • Білім • Қорғаныс</div>
+      <h1>Цифрлық әлемде<br><span class="gradient">өзіңді қорға.</span></h1>
+      <p class="lead">CyberSafe — файлдарды AES-256-GCM алгоритмімен шифрлауға және киберқауіптерді тануды үйренуге арналған оқу платформасы.</p>
+      <div class="hero-actions"><button data-go="encrypt">Файлды шифрлау</button><button class="secondary" data-go="learn">Үйренуді бастау</button></div>
+    </div>
+    <div class="hero-art"><div class="orbit"></div><div class="orbit two"></div><div class="orb">🔐</div></div>
+  </div>
+  <div class="stats">
+    <div class="stat"><strong>AES-256</strong><span>Файлдарды шифрлау</span></div>
+    <div class="stat"><strong>5+</strong><span>Киберқауіпсіздік тақырыбы</span></div>
+    <div class="stat"><strong id="homeScore">0</strong><span>Жиналған ұпай</span></div>
+  </div>
+  <div class="grid">
+    <div class="card"><span class="tag">01 / FILE ENCRYPTION</span><h3>Файлдарды шифрлау</h3><p>Файлды құпиясөз арқылы шифрлап, .enc форматында сақтаңыз. Кейін дұрыс құпиясөзбен қайта ашыңыз.</p><button data-go="encrypt">Ашу →</button></div>
+    <div class="card"><span class="tag">02 / LEARNING</span><h3>Киберқауіпсіздікті үйрену</h3><p>Фишинг, күшті құпиясөз және қауіпсіз интернет туралы қысқа сабақтарды оқыңыз.</p><button data-go="learn">Ашу →</button></div>
+  </div>
+</section>
+
+<section id="encrypt" class="section">
+  <div class="section-head"><div class="eyebrow">FILE ENCRYPTION SYSTEM</div><h2>Файлдарды қорғау</h2><p>Файлды таңдаңыз, құпиясөз енгізіңіз және шифрлаңыз немесе қайта ашыңыз.</p></div>
+  <div class="grid">
+    <div class="card">
+      <span class="tag">ENCRYPT</span><h3>Файлды шифрлау</h3><p>Файл браузер ішінде өңделеді. Серверге жіберілмейді.</p>
+      <div class="drop"><div style="font-size:30px">📁</div><strong>Шифрланатын файлды таңдаңыз</strong><input type="file" id="encryptFile"></div>
+      <div class="field"><label>Құпиясөз (кемінде 8 таңба)</label><input id="encryptPass" type="password" minlength="8" placeholder="Күшті құпиясөз енгізіңіз"></div>
+      <button id="encryptBtn">🔒 Шифрлау және жүктеу</button><div id="encryptMsg" aria-live="polite"></div>
+    </div>
+    <div class="card">
+      <span class="tag">DECRYPT</span><h3>Файлды қайта ашу</h3><p>CyberSafe арқылы жасалған .enc файлын таңдаңыз.</p>
+      <div class="drop"><div style="font-size:30px">🗂️</div><strong>Шифрланған файлды таңдаңыз</strong><input type="file" id="decryptFile" accept=".enc,application/octet-stream"></div>
+      <div class="field"><label>Шифрлау кезінде қолданылған құпиясөз</label><input id="decryptPass" type="password" placeholder="Құпиясөзді енгізіңіз"></div>
+      <button id="decryptBtn">🔓 Файлды ашу және жүктеу</button><div id="decryptMsg" aria-live="polite"></div>
+    </div>
+  </div>
+  <div class="notice warn">Маңызды: құпиясөзді ұмытпаңыз. Ол жоғалса, шифрланған файлды қалпына келтіру мүмкін емес. Бұл оқу прототипі; аса құпия деректерді қорғау үшін ұйымның тексерілген шешімдерін пайдаланыңыз.</div>
+</section>
+
+<section id="learn" class="section">
+  <div class="section-head"><div class="eyebrow">CYBER SECURITY LEARNING</div><h2>Киберқауіпсіздік сабақтары</h2><p>Негізгі қауіптерді танып, интернетте қауіпсіз әрекет етуді үйреніңіз.</p></div>
+  <div class="lesson-list">
+    <div class="lesson"><span class="pill">1-САБАҚ</span><strong>Фишинг дегеніміз не?</strong>Фишинг — жалған хат, хабарлама немесе сайт арқылы логин, құпиясөз және банк деректерін алдап алу әрекеті. Жіберушінің мекенжайын, сілтемені және хабарламадағы асықтыру белгілерін тексеріңіз.</div>
+    <div class="lesson"><span class="pill">2-САБАҚ</span><strong>Күшті құпиясөз</strong>Әр сервиске бөлек, ұзын әрі бірегей құпиясөз қолданыңыз. Құпиясөз менеджерін пайдаланып, мүмкін болса көп факторлы аутентификацияны қосыңыз.</div>
+    <div class="lesson"><span class="pill">3-САБАҚ</span><strong>Қауіпсіз сілтемелер</strong>Күмәнді қысқа сілтемелерге өтпеңіз. Домен атауын мұқият тексеріңіз. HTTPS болуы сайттың міндетті түрде сенімді екенін білдірмейді.</div>
+    <div class="lesson"><span class="pill">4-САБАҚ</span><strong>Файлдарды қорғау</strong>Белгісіз жіберушіден келген тіркемелерді ашпаңыз. Бағдарламаларды ресми көздерден жүктеңіз және маңызды файлдардың резервтік көшірмесін жасаңыз.</div>
+    <div class="lesson"><span class="pill">5-САБАҚ</span><strong>Құрылғыны жаңарту</strong>Операциялық жүйе мен қолданбаларды уақытында жаңартыңыз. Жаңартулар белгілі осалдықтарды түзетуі мүмкін.</div>
+  </div>
+  <div class="card" style="margin-top:16px"><h3>Фишингті анықтау мысалы</h3><p>«Сіздің университет аккаунтыңыз 10 минуттан кейін жабылады! Қазір мына сілтемеге кіріп, құпиясөзіңізді растаңыз» деген хат келді.</p><p><b style="color:var(--yellow)">Қауіпті белгілер:</b> асықтыру, қорқыту, құпиясөз сұрау және белгісіз сілтеме.</p><button data-go="quiz">Біліміңізді тексеру →</button></div>
+</section>
+
+<section id="quiz" class="section">
+  <div class="section-head"><div class="eyebrow">KNOWLEDGE CHECK</div><h2>Киберқауіпсіздік тесті</h2><p>5 сұраққа жауап беріп, ұпай жинаңыз.</p></div>
+  <div class="card" id="quizCard">
+    <div class="row"><span class="muted" id="qCount">1 / 5 сұрақ</span><span class="muted" style="text-align:right" id="qPoints">0 ұпай</span></div>
+    <div class="progress"><span id="progressBar"></span></div>
+    <div class="quiz-question" id="question"></div>
+    <div class="answers" id="answers"></div>
+    <div id="feedback" aria-live="polite"></div>
+    <div class="row"><button id="nextBtn" disabled>Келесі сұрақ →</button><button class="secondary" id="restartBtn">Қайта бастау</button></div>
+  </div>
+  <div class="card hidden" id="quizDone"><div class="eyebrow">TEST COMPLETED</div><h2>Тест аяқталды!</h2><div class="result" id="finalScore"></div><p class="muted" id="finalText"></p><button id="againBtn">Қайта тапсыру</button></div>
+</section>
+
+<section id="results" class="section">
+  <div class="section-head"><div class="eyebrow">YOUR PROGRESS</div><h2>Нәтижелер</h2><p>Осы браузерде сақталған тест нәтижелері.</p></div>
+  <div class="grid">
+    <div class="stat"><strong id="totalPoints">0</strong><span>Жалпы ұпай</span></div>
+    <div class="stat"><strong id="testsDone">0</strong><span>Аяқталған тест</span></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h3>Соңғы нәтиже</h3><p id="lastResult" class="muted">Әзірге тест тапсырылған жоқ.</p><button class="secondary" id="clearResults">Нәтижелерді тазалау</button></div>
+</section>
+</main>
+
+<div class="modal-backdrop" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+ <div class="modal">
+  <button class="modal-close" id="authClose">✕</button>
+  <div class="eyebrow">CYBERSAFE ACCOUNT</div><h2 id="authTitle">Жүйеге кіру</h2>
+  <p id="authSubtitle">Аккаунтыңызға кіріңіз немесе жаңа аккаунт ашыңыз.</p>
+  <div class="field"><label>Электрондық пошта</label><input id="authEmail" type="email" placeholder="name@example.com" autocomplete="username"></div>
+  <div class="field"><label>Құпиясөз</label><input id="authPassword" type="password" placeholder="Кемінде 8 таңба" autocomplete="current-password"></div>
+  <div id="authError" class="small" style="color:var(--red);min-height:20px"></div>
+  <button id="authSubmit" style="width:100%">Кіру</button>
+  <div class="auth-switch"><button type="button" class="secondary" id="switchLogin">Кіру</button><button type="button" class="secondary" id="switchRegister">Тіркелу</button></div>
+  <p class="small" style="margin-top:12px">Демо-нұсқа: аккаунт осы браузерде сақталады. Нақты жария сайт үшін серверлік авторизация қажет.</p>
+ </div>
+</div>
+<button class="ai-fab" id="aiToggle" aria-label="ИИ көмекшіні ашу">🤖</button>
+<div class="ai-panel" id="aiPanel">
+ <div class="ai-head"><div><strong>CyberSafe AI</strong><small>Киберқауіпсіздік көмекшісі • демо</small></div><button class="secondary" id="aiClose" style="padding:5px 9px">✕</button></div>
+ <div class="ai-messages" id="aiMessages"><div class="ai-msg bot">Сәлем! Мен CyberSafe көмекшісімін. Файлдарды шифрлау, AES, фишинг, құпиясөз және интернет қауіпсіздігі туралы сұраңыз.</div></div>
+ <div class="ai-compose"><input id="aiInput" placeholder="Сұрағыңызды жазыңыз..." maxlength="500"><button id="aiSend">Жіберу</button></div>
+</div>
+
+<footer class="footer">© 2026 CyberSafe • Оқу мақсатындағы киберқауіпсіздік платформасы</footer>
+<script>
+const tabs=[...document.querySelectorAll('nav button[data-tab]')];
+function showTab(id){document.querySelectorAll('.section').forEach(s=>s.classList.toggle('active',s.id===id));tabs.forEach(b=>b.classList.toggle('active',b.dataset.tab===id));if(id==='results')renderResults();window.scrollTo({top:0,behavior:'smooth'});}
+tabs.forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.go)));
+
+function msg(el,text,type=''){el.className='notice '+type;el.textContent=text;}
+function downloadBlob(blob,name){const a=document.createElement('a');const u=URL.createObjectURL(blob);a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);}
+const enc=new TextEncoder(), dec=new TextDecoder();
+async function deriveKey(password,salt){const material=await crypto.subtle.importKey('raw',enc.encode(password),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:310000,hash:'SHA-256'},material,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);}
+document.getElementById('encryptBtn').addEventListener('click',async()=>{
+ const file=document.getElementById('encryptFile').files[0],pass=document.getElementById('encryptPass').value,box=document.getElementById('encryptMsg');
+ if(!file)return msg(box,'Алдымен файл таңдаңыз.','error');if(pass.length<8)return msg(box,'Құпиясөз кемінде 8 таңбадан тұруы керек.','error');
+ const btn=document.getElementById('encryptBtn');btn.disabled=true;btn.textContent='Шифрланып жатыр...';
+ try{const salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12)),key=await deriveKey(pass,salt),plain=await file.arrayBuffer(),cipher=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,plain);
+ const nameBytes=enc.encode(file.name);if(nameBytes.length>65535)throw new Error('Файл атауы тым ұзын.');
+ const header=new Uint8Array(4+16+12+2+nameBytes.length);header.set([67,83,70,49],0);header.set(salt,4);header.set(iv,20);header[32]=nameBytes.length>>8;header[33]=nameBytes.length&255;header.set(nameBytes,34);
+ const out=new Uint8Array(header.length+cipher.byteLength);out.set(header);out.set(new Uint8Array(cipher),header.length);
+ downloadBlob(new Blob([out],{type:'application/octet-stream'}),file.name+'.enc');msg(box,'Сәтті шифрланды! .enc файлы жүктелді.','');
+ }catch(e){msg(box,'Шифрлау қатесі: '+e.message,'error')}finally{btn.disabled=false;btn.textContent='🔒 Шифрлау және жүктеу';}
+});
+document.getElementById('decryptBtn').addEventListener('click',async()=>{
+ const file=document.getElementById('decryptFile').files[0],pass=document.getElementById('decryptPass').value,box=document.getElementById('decryptMsg');
+ if(!file)return msg(box,'Алдымен .enc файлын таңдаңыз.','error');if(!pass)return msg(box,'Құпиясөзді енгізіңіз.','error');
+ const btn=document.getElementById('decryptBtn');btn.disabled=true;btn.textContent='Ашылып жатыр...';
+ try{const data=new Uint8Array(await file.arrayBuffer());if(data.length<50||String.fromCharCode(...data.slice(0,4))!=='CSF1')throw new Error('Файл форматы CyberSafe форматына сәйкес емес.');
+ const salt=data.slice(4,20),iv=data.slice(20,32),len=(data[32]<<8)|data[33];if(data.length<34+len+16)throw new Error('Файл толық емес.');
+ const name=dec.decode(data.slice(34,34+len)),cipher=data.slice(34+len),key=await deriveKey(pass,salt),plain=await crypto.subtle.decrypt({name:'AES-GCM',iv},key,cipher);
+ downloadBlob(new Blob([plain]),name||'decrypted-file');msg(box,'Файл сәтті ашылды және жүктелді.','');
+ }catch(e){msg(box,'Файл ашылмады. Құпиясөз қате немесе файл бүлінген.','error')}finally{btn.disabled=false;btn.textContent='🔓 Файлды ашу және жүктеу';}
+});
+
+const questions=[
+ {q:'Фишинг дегеніміз не?',a:['Компьютерді тазалау','Жалған хабарламамен жеке деректерді алдау арқылы алу','Файлдарды архивтеу','Интернет жылдамдығын арттыру'],c:1,why:'Фишинг — қолданушыны алдап, құпия ақпаратты алуға бағытталған шабуыл.'},
+ {q:'Күшті құпиясөзге қайсысы жақсы мысал?',a:['12345678','password','Әр сервиске бөлек ұзын әрі бірегей құпиясөз','Туған күн'],c:2,why:'Ұзын, бірегей құпиясөзді әр сервиске бөлек қолданған дұрыс.'},
+ {q:'Күмәнді хаттағы сілтемені көрсеңіз не істейсіз?',a:['Бірден басамын','Достарыма жіберемін','Жіберушіні және доменді тексеріп, күмән болса ашпаймын','Құпиясөзімді енгіземін'],c:2,why:'Сілтемені ашпай тұрып жіберуші мен доменді тексеріңіз.'},
+ {q:'AES алгоритмі не үшін қолданылады?',a:['Файлды шифрлау','Экран жарықтығын арттыру','Интернетке қосылу','Вирус жасау'],c:0,why:'AES — симметриялық шифрлау стандарты.'},
+ {q:'Екі факторлы аутентификацияның мақсаты қандай?',a:['Компьютерді жылдамдату','Қосымша растау арқылы аккаунтты қорғау','Файл көлемін азайту','Жарнама көрсету'],c:1,why:'2FA құпиясөзден бөлек екінші растау факторын талап етеді.'}
+];
+let qi=0,score=0,answered=false;
+const $=id=>document.getElementById(id);
+function renderQ(){answered=false;$('quizCard').classList.remove('hidden');$('quizDone').classList.add('hidden');$('qCount').textContent=(qi+1)+' / '+questions.length+' сұрақ';$('qPoints').textContent=score+' ұпай';$('progressBar').style.width=(qi/questions.length*100)+'%';$('question').textContent=questions[qi].q;$('feedback').innerHTML='';$('nextBtn').disabled=true;$('answers').innerHTML='';questions[qi].a.forEach((a,i)=>{const b=document.createElement('button');b.className='answer';b.textContent=String.fromCharCode(65+i)+') '+a;b.addEventListener('click',()=>choose(i,b));$('answers').appendChild(b);});}
+function choose(i,button){if(answered)return;answered=true;const q=questions[qi];[...$('answers').children].forEach((b,j)=>{b.disabled=true;if(j===q.c)b.classList.add('correct');});if(i===q.c){score+=20;button.classList.add('correct');$('feedback').innerHTML='<div class="notice">Дұрыс! '+q.why+'</div>';}else{button.classList.add('wrong');$('feedback').innerHTML='<div class="notice error">Қате жауап. '+q.why+'</div>';} $('qPoints').textContent=score+' ұпай';$('nextBtn').disabled=false;}
+function finish(){ $('quizCard').classList.add('hidden');$('quizDone').classList.remove('hidden');$('finalScore').textContent=score+' / 100 ұпай';$('finalText').textContent=score>=80?'Өте жақсы! Киберқауіпсіздік негіздерін жақсы меңгергенсіз.':score>=60?'Жақсы нәтиже! Сабақтарды қайталап, біліміңізді бекітіңіз.':'Сабақтарды оқып, тестті қайта тапсырып көріңіз.';let arr=JSON.parse(localStorage.getItem('cybersafeResults')||'[]');arr.push({score,date:new Date().toLocaleString('kk-KZ')});localStorage.setItem('cybersafeResults',JSON.stringify(arr));}
+function restart(){qi=0;score=0;renderQ();}
+$('nextBtn').addEventListener('click',()=>{if(qi<questions.length-1){qi++;renderQ()}else finish()});$('restartBtn').addEventListener('click',restart);$('againBtn').addEventListener('click',restart);
+function renderResults(){const arr=JSON.parse(localStorage.getItem('cybersafeResults')||'[]');const total=arr.reduce((s,x)=>s+x.score,0);$('totalPoints').textContent=total;$('testsDone').textContent=arr.length;$('homeScore').textContent=total;$('lastResult').textContent=arr.length?arr[arr.length-1].score+' / 100 ұпай — '+arr[arr.length-1].date:'Әзірге тест тапсырылған жоқ.';}
+$('clearResults').addEventListener('click',()=>{if(confirm('Барлық тест нәтижелерін өшіресіз бе?')){localStorage.removeItem('cybersafeResults');renderResults();}});
+renderQ();renderResults();
+
+// Demo account authorization: credentials are stored only in this browser.
+// Do not use this local-only implementation for real personal or production accounts.
+const authModal=document.getElementById('authModal');
+let authMode='login';
+function openAuth(mode){authMode=mode;document.getElementById('authTitle').textContent=mode==='login'?'Жүйеге кіру':'Тіркелу';document.getElementById('authSubmit').textContent=mode==='login'?'Кіру':'Тіркелу';document.getElementById('authSubtitle').textContent=mode==='login'?'Аккаунтыңызға кіріңіз.':'Жаңа аккаунт жасаңыз.';document.getElementById('authError').textContent='';authModal.classList.add('show');}
+function closeAuth(){
+ if(!localStorage.getItem('cybersafeCurrentUser')) return;
+ authModal.classList.remove('show');
+}
+function getUsers(){try{return JSON.parse(localStorage.getItem('cybersafeUsers')||'{}')}catch{return {}}}
+function updateAuthUI(){
+ const user=localStorage.getItem('cybersafeCurrentUser');
+ document.body.classList.toggle('auth-locked',!user);
+ document.getElementById('userChip').textContent=user?'👤 '+user:'';
+ document.getElementById('loginOpen').classList.toggle('hidden',!!user);
+ document.getElementById('registerOpen').classList.toggle('hidden',!!user);
+ document.getElementById('logoutBtn').classList.toggle('hidden',!user);
+ if(!user){authModal.classList.add('show');openAuth('login');}
+ else {authModal.classList.remove('show');}
+}
+document.getElementById('loginOpen').addEventListener('click',()=>openAuth('login'));
+document.getElementById('registerOpen').addEventListener('click',()=>openAuth('register'));
+document.getElementById('authClose').addEventListener('click',closeAuth);
+authModal.addEventListener('click',e=>{if(e.target===authModal && localStorage.getItem('cybersafeCurrentUser'))closeAuth()});
+document.getElementById('switchLogin').addEventListener('click',()=>openAuth('login'));
+document.getElementById('switchRegister').addEventListener('click',()=>openAuth('register'));
+document.getElementById('logoutBtn').addEventListener('click',()=>{
+ localStorage.removeItem('cybersafeCurrentUser');
+ updateAuthUI();
+});
+document.getElementById('authSubmit').addEventListener('click',()=>{
+ const email=document.getElementById('authEmail').value.trim().toLowerCase(),pass=document.getElementById('authPassword').value;
+ const err=document.getElementById('authError');
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent='Дұрыс электрондық пошта енгізіңіз.';return}
+ if(pass.length<8){err.textContent='Құпиясөз кемінде 8 таңба болуы керек.';return}
+ const users=getUsers();
+ if(authMode==='register'){
+  if(users[email]){err.textContent='Бұл пошта тіркелген. Жүйеге кіріңіз.';return}
+  users[email]=pass;localStorage.setItem('cybersafeUsers',JSON.stringify(users));
+ }else if(users[email]!==pass){err.textContent='Пошта немесе құпиясөз қате.';return}
+ localStorage.setItem('cybersafeCurrentUser',email);updateAuthUI();closeAuth();
+});
+updateAuthUI();
+
+// Local educational assistant (predefined knowledge base; no external AI model/API).
+const aiPanel=document.getElementById('aiPanel'),aiMessages=document.getElementById('aiMessages'),aiInput=document.getElementById('aiInput');
+document.getElementById('aiToggle').addEventListener('click',()=>aiPanel.classList.toggle('open'));
+document.getElementById('aiClose').addEventListener('click',()=>aiPanel.classList.remove('open'));
+function addAiMessage(text,who){const div=document.createElement('div');div.className='ai-msg '+who;div.textContent=text;aiMessages.appendChild(div);aiMessages.scrollTop=aiMessages.scrollHeight;}
+function cyberAnswer(q){
+ const s=q.toLowerCase();
+ if(/aes|шифр|encrypt|файл/.test(s))return 'AES — симметриялық шифрлау алгоритмі. CyberSafe файлды AES-256-GCM режимімен қорғайды. Шифрланған файлды ашу үшін дәл сол құпиясөз қажет. Құпиясөзді жоғалтпаңыз.';
+ if(/фишинг|phishing|хат|сілтеме/.test(s))return 'Фишингтен қорғану: жіберушінің мекенжайын тексеріңіз, күмәнді сілтемені ашпаңыз, хаттағы асықтыру мен қорқытуға сенбеңіз және ешқашан құпиясөзді хат арқылы бермеңіз.';
+ if(/құпиясөз|пароль|password/.test(s))return 'Ұзын әрі бірегей құпиясөз қолданыңыз. Әр сайтқа бөлек пароль қойыңыз, пароль менеджерін және көп факторлы аутентификацияны пайдаланыңыз.';
+ if(/2fa|екі фактор|аутентификац/.test(s))return 'Екі факторлы аутентификация аккаунтқа кіру үшін құпиясөзден бөлек екінші растауды талап етеді. Мүмкін болса, authenticator қолданбасын пайдаланыңыз.';
+ if(/ddos/.test(s))return 'DDoS — серверге шамадан тыс көп сұраныс жіберіп, қызметтің қолжетімділігін бұзу әрекеті. Қорғанысқа трафик сүзгілеу, rate limiting және DDoS mitigation қызметтері жатады.';
+ if(/вирус|malware|зиянды/.test(s))return 'Белгісіз файлдарды ашпаңыз, бағдарламаларды ресми көздерден жүктеңіз, жүйені жаңартыңыз және маңызды файлдардың резервтік көшірмесін сақтаңыз.';
+ if(/сәлем|салем|hello/.test(s))return 'Сәлем! Киберқауіпсіздік бойынша қандай сұрағыңыз бар? Мысалы: AES қалай жұмыс істейді немесе фишингті қалай тануға болады?';
+ return 'Бұл сұрақ бойынша нақты жауап базамда жоқ. Қауіпсіздік тақырыбын нақтылап сұраңыз: AES шифрлау, фишинг, құпиясөз, 2FA, DDoS немесе зиянды файлдар. Ескерту: бұл демо-көмекші, толыққанды онлайн ИИ моделіне қосылмаған.';
+}
+function sendAi(){const q=aiInput.value.trim();if(!q)return;addAiMessage(q,'user');aiInput.value='';setTimeout(()=>addAiMessage(cyberAnswer(q),'bot'),180);}
+document.getElementById('aiSend').addEventListener('click',sendAi);
+aiInput.addEventListener('keydown',e=>{if(e.key==='Enter')sendAi()});
+
+</script>
+</body></html>
